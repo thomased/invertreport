@@ -1,0 +1,166 @@
+---
+title: "Getting started with invertreport"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with invertreport}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
+                      fig.width = 8.5, fig.height = 11, dpi = 100)
+```
+
+`invertreport` is the R implementation of **INSTAR** (INvertebrate
+Standards for Treatment And Reporting), an 18-item reporting framework
+for invertebrate welfare in research. It produces a standardised,
+one-page summary figure for a paper in the spirit of the PRISMA and
+ROSES flow diagrams. Each cell of the figure carries the substantive
+content for the corresponding framework item, not just a tick-box.
+
+```{r setup}
+library(invertreport)
+```
+
+## The INSTAR framework
+
+The package ships with the 18-item INSTAR framework as an exported data frame.
+
+```{r}
+framework
+```
+
+Items are grouped into five welfare domains (Mellor *et al.* 2020, with
+"affective state" in place of "mental state") and three cross-cutting
+essentials. End-of-study disposition lives within the Health welfare
+domain.
+
+## Three ways to fill out the items
+
+Pick whichever fits how you work. All three produce the same kind of
+`items` data frame that `invert_report()` consumes.
+
+### Interactive prompt
+
+The most forgiving workflow for first-time users. `fill_items()` walks
+through each item, showing its name and description, and prompts for a
+value. It can save partway and resume later.
+
+```{r, eval = FALSE}
+items <- fill_items(save_to = "my_study.csv")
+```
+
+At any prompt, type the value, or one of: `[enter]` to keep current,
+`NA` for not applicable, `skip` to leave blank, `back` to step back,
+`save` to write progress, `quit` to stop.
+
+To resume:
+
+```{r, eval = FALSE}
+items <- fill_items(load_items("my_study.csv"),
+                    save_to = "my_study.csv")
+```
+
+To edit a single item afterwards (no need to know `item_id`s — pass no
+`item_id` and you'll be shown a numbered menu):
+
+```{r, eval = FALSE}
+items <- edit_item(items)
+items <- edit_item(items, "subjects_n")   # or by id
+```
+
+### CSV template
+
+Easier when you want to hand the form to a collaborator, or when items
+are spread across multiple people. Write a blank template, fill it in in
+Excel (or any spreadsheet or text editor), then load it back.
+
+```{r, eval = FALSE}
+save_template("my_study.csv", study_type = "field")
+# ...edit the value column...
+items <- load_items("my_study.csv")
+```
+
+The template CSV has one row per item with `item_id`, `item`, `domain`,
+`description`, and a blank `value` column. The `item`, `domain`, and
+`description` columns are in the file as on-page reminders of what each
+item asks for. They are ignored on load, so only `item_id` and `value`
+are strictly required.
+
+A bundled blank template is also available as a static file you can
+hand-copy:
+
+```{r}
+template_path <- system.file("extdata", "template_items.csv",
+                             package = "invertreport")
+template_path
+```
+
+And a filled example to look at:
+
+```{r}
+example_path <- system.file("extdata", "example_items.csv",
+                            package = "invertreport")
+items <- load_items(example_path)
+head(items)
+```
+
+### Programmatic
+
+Useful in scripts and pipelines.
+
+```{r, eval = FALSE}
+items <- framework_template()
+items$value[items$item_id == "subjects_taxon"] <-
+  "Bombus terrestris (worker female); morphology + COI"
+```
+
+## Checking progress
+
+```{r, eval = FALSE}
+show_items(items)
+```
+
+prints all 18 items grouped by domain, marking each as reported (`*`),
+not applicable (`-`), or blank (`o`), with the current value shown
+underneath.
+
+## Build the figure
+
+```{r, fig.alt = "Example welfare reporting figure"}
+report <- invert_report(
+  paper = list(
+    title   = "Field collection and laboratory choice trials in Bombus terrestris",
+    authors = "Smith, Jones, & Lee (2025)",
+    journal = "Behavioral Ecology, 36(4): 451-462"
+  ),
+  items = items
+)
+
+report
+```
+
+`print()` (or just typing the object's name) shows a one-line coverage
+summary. `plot()` renders the figure inline.
+
+## Save it
+
+```{r, eval = FALSE}
+save_report(report, "fig_S1_welfare_reporting.pdf")
+save_report(report, "fig_S1_welfare_reporting.png", dpi = 300)
+```
+
+`save_report()` is a thin wrapper around `ggplot2::ggsave()` with sensible
+defaults (US Letter, 300 dpi, white background).
+
+## Web tool
+
+For a clickable interface, run:
+
+```{r, eval = FALSE}
+run_shiny_app()
+```
+
+The Shiny app lets you fill in each framework item interactively, preview
+the figure, and download the PDF or PNG.

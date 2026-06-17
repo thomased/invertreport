@@ -1,0 +1,42 @@
+Package: invertreport
+Type: Package
+Title: INSTAR: Reporting of Invertebrate Welfare in Ecological and Evolutionary Research
+Version: 0.1.0
+Authors@R: c(
+    person("Thomas E.", "White", email = "thomas.white@sydney.edu.au",
+           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3976-1734")),
+    person("Kate E.", "Lynch", role = "aut"),
+    person("Caitlyn", "Forster", role = "aut"),
+    person("Tanya", "Latty", role = "aut"),
+    person("Kate D. L.", "Umbers", role = "aut"),
+    person("Eleanor", "Drinkwater", role = "aut"))
+Description: An R implementation of the INSTAR framework (INvertebrate
+    Standards for Treatment And Reporting; White et al., in prep), an
+    18-item reporting standard for invertebrate welfare in research. The
+    package produces a standardised, publication-ready summary figure in
+    which each cell carries the substantive content for the corresponding
+    item (species and provenance, housing conditions, ethics permits, and
+    so on), in the same spirit as a PRISMA flow diagram for systematic
+    reviews.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 4.1.0)
+Imports:
+    ggplot2,
+    ggtext,
+    patchwork
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    shiny,
+    bslib,
+    readr
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
+URL: https://github.com/thomased/invertreport
+BugReports: https://github.com/thomased/invertreport/issues
+Config/roxygen2/version: 8.0.0
