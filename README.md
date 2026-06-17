@@ -175,9 +175,7 @@ table(framework$domain, framework$group)
 
 If you use `invertreport`, please cite:
 
-> White, T. E., Lynch, K. E., Forster, C., Latty, T., Umbers, K. D. L.,
-> & Drinkwater, E. (in prep). INSTAR: reporting items for invertebrate
-> welfare in research.
+
 
 ## Licence
 
