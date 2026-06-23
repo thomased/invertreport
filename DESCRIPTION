@@ -1,14 +1,10 @@
 Package: invertreport
 Type: Package
-Title: INSTAR: Reporting of Invertebrate Welfare in Ecological and Evolutionary Research
+Title: INSTAR: Reporting of Invertebrate Welfare in Research
 Version: 0.1.0
 Authors@R: c(
     person("Thomas E.", "White", email = "thomas.white@sydney.edu.au",
            role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3976-1734")),
-    person("Kate E.", "Lynch", role = "aut"),
-    person("Caitlyn", "Forster", role = "aut"),
-    person("Tanya", "Latty", role = "aut"),
-    person("Kate D. L.", "Umbers", role = "aut"),
     person("Eleanor", "Drinkwater", role = "aut"))
 Description: An R implementation of the INSTAR framework (INvertebrate
     Standards for Treatment And Reporting; White et al., in prep), an

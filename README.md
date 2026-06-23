@@ -20,21 +20,6 @@ diagrams for evidence synthesis.
 remotes::install_github("thomased/invertreport")
 ```
 
-For local development, open `invertreport.Rproj` in RStudio (which sets
-the working directory to the package root), then:
-
-```r
-devtools::document()    # regenerate man/ files from roxygen comments
-devtools::install()     # install locally
-devtools::test()        # run tests
-devtools::check()       # full R CMD check
-```
-
-If `devtools::document()` errors with "Could not find package root", your
-R session's working directory is not inside the package. Either open the
-`.Rproj` file, run `setwd("path/to/invertreport")`, or pass the path
-explicitly: `devtools::document("path/to/invertreport")`.
-
 ## Three ways to fill out the framework
 
 Pick whichever fits your workflow. All three produce the same kind of
@@ -175,7 +160,14 @@ table(framework$domain, framework$group)
 
 If you use `invertreport`, please cite:
 
+> White, T. E. ... & Drinkwater, E. (in prep). INSTAR: reporting items for
+> invertebrate welfare in research.
 
+And the package directly:
+
+> White, T. E. ... & Drinkwater, E. (2026). `invertreport`: An R
+> implementation of the INSTAR framework. R package version 0.1.0.
+> https://github.com/thomased/invertreport.
 
 ## Licence
 
