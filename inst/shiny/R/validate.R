@@ -16,7 +16,7 @@
 #' validate_items(tmpl)
 #'
 #' @export
-validate_items <- function(items, framework_df = invertreport::framework,
+validate_items <- function(items, framework_df = framework,
                            strict = TRUE) {
   if (!is.data.frame(items)) {
     stop("`items` must be a data frame.", call. = FALSE)

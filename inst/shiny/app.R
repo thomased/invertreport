@@ -22,7 +22,7 @@ local({
 
 use_bslib <- requireNamespace("bslib", quietly = TRUE)
 
-domains_ordered <- unique(invertreport::framework$domain)
+domains_ordered <- unique(framework$domain)
 
 # Internal helper
 `%||%` <- function(a, b) if (is.null(a) || is.na(a) || identical(a, "")) b else a
