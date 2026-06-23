@@ -70,10 +70,6 @@ Useful links:
 Authors:
 \itemize{
   \item Thomas E. White \email{thomas.white@sydney.edu.au} (\href{https://orcid.org/0000-0002-3976-1734}{ORCID})
-  \item Kate E. Lynch
-  \item Caitlyn Forster
-  \item Tanya Latty
-  \item Kate D. L. Umbers
   \item Eleanor Drinkwater
 }
 

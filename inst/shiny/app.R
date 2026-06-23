@@ -6,7 +6,19 @@
 # --------------------------------------------------------------------
 
 library(shiny)
-library(invertreport)
+
+local({
+  pkg_root <- system.file(package = "invertreport")
+  # If running in shinylive, the package isn't installed; load from
+  # bundled R/ files copied alongside the app.
+  if (pkg_root == "") {
+    for (f in list.files("R", pattern = "\\.R$", full.names = TRUE)) {
+      sys.source(f, envir = globalenv())
+    }
+  } else {
+    library(invertreport)
+  }
+})
 
 use_bslib <- requireNamespace("bslib", quietly = TRUE)
 
