@@ -129,7 +129,12 @@ save_report(report, "fig_S1_welfare_reporting.pdf")
 
 ## Web tool
 
-For a clickable interface with live preview, launch the bundled Shiny app:
+A hosted version of the app is available at
+**https://thomas-white.shinyapps.io/instar/** — no installation
+required, just open it in any browser.
+
+For a local copy with live preview (and no shinyapps.io free-tier
+sleep), launch the bundled Shiny app:
 
 ```r
 run_shiny_app()

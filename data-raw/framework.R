@@ -6,7 +6,7 @@ library(readxl)
 library(dplyr)
 library(tibble)
 
-src <- "../data/standards_v1.xlsx"   # canonical source, relative to package root
+src <- "../data/INSTAR_v1.xlsx"   # canonical source, relative to package root
 stopifnot(file.exists(src))
 
 raw <- readxl::read_xlsx(src, sheet = "Reporting items v1.0", skip = 2)
