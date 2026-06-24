@@ -156,12 +156,19 @@ server <- function(input, output, session) {
   # leave the class attached, print() dispatches to print.invert_report,
   # which only writes a coverage summary to the console — and the preview
   # ends up blank.
+  #
+  # Safari is sensitive to two things here: (1) the default `res` value
+  # was too high and pushed the rendered bitmap past Safari's canvas
+  # limits, leaving the preview area blank; (2) the initial-load
+  # reactive sometimes does not flush in Safari if every input is NULL,
+  # so we tap input$study_type to force at least one non-NULL dependency.
   output$preview <- renderPlot({
+    input$study_type  # force a non-NULL reactive dep for Safari
     rep <- current_report()
     if (is.null(rep)) return(NULL)
     class(rep) <- setdiff(class(rep), "invert_report")
     print(rep)
-  }, res = 110, bg = "white")
+  }, bg = "white")
 
   output$download_pdf <- downloadHandler(
     filename = function() "welfare_reporting.pdf",
