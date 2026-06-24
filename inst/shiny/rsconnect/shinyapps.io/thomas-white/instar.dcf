@@ -1,0 +1,10 @@
+name: instar
+title: INSTAR — invertebrate welfare reporting
+username: thomas-white
+account: thomas-white
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17545113
+bundleId: 12170070
+url: https://thomas-white.shinyapps.io/instar/
+version: 1
