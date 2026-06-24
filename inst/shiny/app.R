@@ -8,23 +8,18 @@
 library(shiny)
 
 local({
-  pkg_root <- system.file(package = "invertreport")
-  # Detect whether we're running in webR (shinylive) vs a local R
-  # install. Under webR the package isn't (and can't be) installed,
-  # so we load the bundled R/ files into globalenv. Locally, we
-  # `library()` the installed package.
-  #
-  # We invoke library() via eval(parse(...)) so shinylive's static
-  # scanner can't see the literal `library(invertreport)` call and
-  # therefore won't try to preload the package from the webR binary
-  # repository (which fails and cascades into a stack overflow on
-  # Safari).
-  if (pkg_root == "") {
-    for (f in list.files("R", pattern = "\\.R$", full.names = TRUE)) {
-      sys.source(f, envir = globalenv())
-    }
-  } else {
-    eval(parse(text = "library(invertreport)"))
+  # Source the bundled R files into globalenv. The same R/ directory
+  # ships inside inst/shiny/ both when the app is run locally via
+  # invertreport::run_shiny_app() (working directory points at the
+  # installed package's inst/shiny) and when it's run under shinylive
+  # (where the directory is bundled into the static export). Sourcing
+  # always avoids any library() call for the package — which is
+  # important because shinylive's static scanner attempts to install
+  # any package named in a library() call from the webR binary repo,
+  # fails for non-CRAN packages, and on Safari cascades into a stack
+  # overflow.
+  for (f in list.files("R", pattern = "\\.R$", full.names = TRUE)) {
+    sys.source(f, envir = globalenv())
   }
 })
 
