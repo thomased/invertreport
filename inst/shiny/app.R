@@ -9,14 +9,22 @@ library(shiny)
 
 local({
   pkg_root <- system.file(package = "invertreport")
-  # If running in shinylive, the package isn't installed; load from
-  # bundled R/ files copied alongside the app.
+  # Detect whether we're running in webR (shinylive) vs a local R
+  # install. Under webR the package isn't (and can't be) installed,
+  # so we load the bundled R/ files into globalenv. Locally, we
+  # `library()` the installed package.
+  #
+  # We invoke library() via eval(parse(...)) so shinylive's static
+  # scanner can't see the literal `library(invertreport)` call and
+  # therefore won't try to preload the package from the webR binary
+  # repository (which fails and cascades into a stack overflow on
+  # Safari).
   if (pkg_root == "") {
     for (f in list.files("R", pattern = "\\.R$", full.names = TRUE)) {
       sys.source(f, envir = globalenv())
     }
   } else {
-    library(invertreport)
+    eval(parse(text = "library(invertreport)"))
   }
 })
 
